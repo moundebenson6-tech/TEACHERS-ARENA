@@ -1,0 +1,27 @@
+{
+  "name": "teachers-arena",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "prisma": "prisma"
+  },
+  "dependencies": {
+    "next": "14.2.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "@prisma/client": "4.23.0",
+    "stripe": "12.18.0",
+    "@aws-sdk/client-s3": "3.385.0",
+    "@aws-sdk/s3-request-presigner": "3.385.0",
+    "bcryptjs": "2.4.3",
+    "jsonwebtoken": "9.0.0",
+    "@stripe/stripe-js": "2.0.0"
+  },
+  "devDependencies": {
+    "prisma": "4.23.0",
+    "typescript": "5.2.2"
+  }
+}
