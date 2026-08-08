@@ -1,0 +1,54 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id              Int       @id @default(autoincrement())
+  email           String    @unique
+  name            String?
+  passwordHash    String?
+  role            String    @default("teacher")
+  isApproved      Boolean   @default(false)
+  discountPercent Int       @default(0)
+  materials       Material[]
+  purchases       Purchase[]
+  createdAt       DateTime  @default(now())
+}
+
+model Material {
+  id              Int      @id @default(autoincrement())
+  title           String
+  description     String?
+  uploaderId      Int
+  uploader        User     @relation(fields: [uploaderId], references: [id])
+  priceCents      Int      @default(0)
+  fileKey         String
+  previewUrl      String?
+  status          String   @default("pending")
+  rejectionReason String?
+  tags            String?
+  createdAt       DateTime @default(now())
+  approvedAt      DateTime?
+  // New fields for scanning
+  scanStatus      String   @default("unscanned")
+  scanReportUrl   String?
+  scannedAt       DateTime?
+}
+
+model Purchase {
+  id                Int      @id @default(autoincrement())
+  buyerId           Int
+  buyer             User     @relation(fields: [buyerId], references: [id])
+  materialId        Int
+  material          Material @relation(fields: [materialId], references: [id])
+  pricePaidCents    Int
+  discountApplied   Int
+  stripePaymentId   String
+  downloadToken     String   @unique
+  createdAt         DateTime @default(now())
+}
